@@ -3,7 +3,7 @@ use std::io::{BufRead, BufReader};
 use std::path::Path;
 use std::error::Error;
 
-pub fn day02() -> Result<(), Box<dyn Error>>{
+pub fn day02(challange:i32) -> Result<(), Box<dyn Error>>{
 
     // Specify the path to the text file
     let file_path = Path::new("input/02.txt");
@@ -37,21 +37,23 @@ pub fn day02() -> Result<(), Box<dyn Error>>{
             if i == n_digits_start{
                 digit_lower_bound = start;
             }else{
-                digit_lower_bound = 10i64.pow((i-1) as u32);
+                digit_lower_bound = 10i64.pow((i-1) as u32); // for example for 4 digit number get 10^(4-1)=1000 as lower bound
             }
             let digit_upper_bound: i64;
             if i == n_digits_end{
                 digit_upper_bound = end;
             }else{
-                digit_upper_bound = 10i64.pow(i as u32) - 1;
+                digit_upper_bound = 10i64.pow(i as u32) - 1; // for example for 4 digit number get 10^(4)-1=9999 as upper bound
             }
-            for number in digit_lower_bound..=digit_upper_bound{
+            if challange == 1 {
+                for number in digit_lower_bound..=digit_upper_bound{
                 let number_str = number.to_string();
                 let chars: Vec<char> = number_str.chars().collect();
                 let halfpoint = (chars.len() as f64 / 2.0).ceil() as usize;
                 if &chars[..halfpoint] == &chars[halfpoint..]{
                     result += number;
                 }
+            }
             }
         }
     }
