@@ -48,20 +48,8 @@ pub fn day01() -> Result<(), Box<dyn Error>>{
         // now can convert to int
         let new_x_100th_int = new_x_100th as i32;
         let old_x_100th_int = old_x_100th as i32;
-        // needed more complex diff logic
-        // (old-new).abs would result for -530 -> -720 in 12 but is 2
-        // (old.abs-new.abs).abs would result for -250 to 250 in 0 but is 5 (now results in 4 + abs zero crossing)
-        if new_x_100th_int <0 && old_x_100th_int <0{
-            n_xxx00_pass += (new_x_100th_int.abs() - old_x_100th_int.abs()).abs();
-        }else if new_x_100th_int<0{
-            n_xxx00_pass += (new_x_100th_int - old_x_100th_int).abs();
-
-        }else if old_x_100th_int<0{
-            n_xxx00_pass += (old_x_100th_int - new_x_100th_int).abs();
-        }
-        else{
-            n_xxx00_pass += (new_x_100th_int.abs() - old_x_100th_int.abs()).abs();
-        }
+        //get number of passed XXX00 crossings
+        n_xxx00_pass += (new_x_100th_int - old_x_100th_int).abs();
         if n_xxx00_pass != 0 {
             // If we start at XXX00 then reduce n_xxx00_pass by one
             // as this 0 was already count last time
