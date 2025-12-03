@@ -1,0 +1,28 @@
+// Source - https://stackoverflow.com/a/70724615
+// Posted by Saurav Rao
+// Retrieved 2025-12-02, License - CC BY-SA 4.0
+
+ {
+     "version": "0.2.0",
+     "configurations": [
+         {
+             "name": "(Windows) Launch",
+             "type": "cppvsdbg",
+             "request": "launch",
+             "program": "${workspaceRoot}/target/debug/advent_of_code_2025.exe",
+             "args": ["02", "02"],
+             "stopAtEntry": false,
+             "cwd": "${workspaceRoot}",
+             "environment": [],
+             "externalConsole": true
+         },
+         {
+             "name": "(OSX) Launch",
+             "type": "lldb",
+             "request": "launch",
+             "program": "${workspaceRoot}/target/debug/foo",
+             "args": [],
+             "cwd": "${workspaceRoot}",
+         }
+     ]
+ }

@@ -28,7 +28,7 @@ pub fn day02(challange:i32) -> Result<(), Box<dyn Error>>{
         let n_digits_end = end.checked_ilog10().unwrap_or(0) + 1;
 
         // check if both bounds have same number of digits and that number is odd then skip this range
-        if n_digits_start == n_digits_end && n_digits_start%2 != 0 {
+        if challange==1 && n_digits_start == n_digits_end && n_digits_start%2 != 0 {
             println!("Range {} has same odd number of digits: {} and therefore cannot contain a double number", range, n_digits_start);
             continue;
         }
@@ -47,13 +47,38 @@ pub fn day02(challange:i32) -> Result<(), Box<dyn Error>>{
             }
             if challange == 1 {
                 for number in digit_lower_bound..=digit_upper_bound{
-                let number_str = number.to_string();
-                let chars: Vec<char> = number_str.chars().collect();
-                let halfpoint = (chars.len() as f64 / 2.0).ceil() as usize;
-                if &chars[..halfpoint] == &chars[halfpoint..]{
-                    result += number;
+                    let number_str = number.to_string();
+                    let chars: Vec<char> = number_str.chars().collect();
+                    let halfpoint = (chars.len() as f64 / 2.0).ceil() as usize;
+                    if &chars[..halfpoint] == &chars[halfpoint..]{
+                        result += number;
+                    }
                 }
-            }
+            }else if challange == 2 {
+                for number in digit_lower_bound..=digit_upper_bound{
+                    let mut is_invalid = false;
+                    let number_str = number.to_string();
+                    let chars: Vec<char> = number_str.chars().collect();
+                    let halfpoint = (chars.len() as f64 / 2.0).ceil() as usize;
+                    for i in 1..=halfpoint{
+                        if is_invalid{
+                            break;
+                        }
+                        if chars.len() % i ==0{
+                            let n = chars.len() / i;
+                            for j in 1..n{
+                                if &chars[(j-1)*i..j*i] != &chars[j*i..(j+1)*i]{
+                                    break;
+                                }
+                                if j == n-1{
+                                    println!("Found: {} consiting {} times of {}", number, n, &chars[0..i].iter().collect::<String>()); 
+                                    result += number;
+                                    is_invalid = true;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
